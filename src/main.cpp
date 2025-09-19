@@ -1,82 +1,49 @@
 // Copyright 2025 souleid
-#include <cstdio>
-#include <string>
-#include <thread>
 #include <chrono>
+#include <cstdio>
+#include <thread>
+#include <vector>
 
-#include "src/include/CornerStoneSDKCore.h"
-#include "src/platform/PlatformServices_Default.h"
+#include "src/include/cornerstonesdkcore.h"
 
 int main() {
-  cornerstone::PlatformServices_Default platform;
-  cornerstone::CornerStoneSDKCore sdk(&platform);
+  cornerstone::CornerstoneSdkCore sdk;
+  if (!sdk.Init(4)) {
+    std::printf("[SDK] init failed\n");
+    return 1;
+  }
+  std::printf("[SDK] init ok\n");
 
-  sdk.Start(6);  // Start with 6 worker threads
-
-  // Task 1: int computation
-  sdk.EnqueueAsync(
-      []() -> int {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        return 42;
-      },
-      [](int result) {
-        std::printf("[Callback] Result1: %d\n", result);
+  std::vector<cornerstone::TaskId> ids;
+  for (int i = 0; i < 5; ++i) {
+    cornerstone::TaskId id = sdk.Request([i]() {
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      std::printf("[task %d] work done\n", i);
       });
+    ids.push_back(id);
+  }
 
-  // Task 2: string return
-  auto id_ok = sdk.EnqueueAsync(
-    []() -> std::string {
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
-      return "Hello from async!";
+  cornerstone::TaskId rid = sdk.RequestWithResult(
+    []() -> int {
+      std::this_thread::sleep_for(std::chrono::milliseconds(30));
+      return 42;
     },
-    [](const std::string& result) {
-      std::printf("[Callback] Received: %s\n", result.c_str());
+    [](int v) {
+      std::printf("[result] value=%d\n", v);
     });
+  ids.push_back(rid);
 
-  // Task 3: float computation
-  sdk.EnqueueAsync(
-      []() -> float {
-        std::this_thread::sleep_for(std::chrono::milliseconds(60));
-        return 3.1415f;
-      },
-      [](float result) {
-        std::printf("[Callback] Result3: %.4f\n", result);
-      });
-
-  // Task 4: heavy int
-  sdk.EnqueueAsync(
-      []() -> int {
-        std::this_thread::sleep_for(std::chrono::milliseconds(120));
-        return 999;
-      },
-      [](int result) {
-        std::printf("[Callback] Result4: %d\n", result);
-      });
-
-  // Task 5: void return
-  sdk.EnqueueAsync(
-      []() {
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        std::printf("[Task] Void task done.\n");
-        return;
-      },
-      []() {
-        std::printf("[Callback] Void return emulated.\n");
-      });
-
-  // Task 6: multiple thread ID log
-  sdk.EnqueueAsync(
-      []() -> std::string {
-        std::this_thread::sleep_for(std::chrono::milliseconds(70));
-        return "Thread ID Task";
-      },
-      [](const std::string& result) {
-        std::printf("[Callback] Result6: %s\n", result.c_str());
-      });
+  // Demo: enqueue then cancel one task before it runs.
+  cornerstone::TaskId cancel_id = sdk.Request([]() {
+    std::printf("[cancel-me] should not run\n");
+    });
+  bool canceled = sdk.CancelById(cancel_id);
+  std::printf("[cancel] id=%llu done=%s\n",
+    static_cast<uint64_t>(cancel_id),
+    canceled ? "true" : "false");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
   sdk.Shutdown();
-
+  std::printf("[SDK] shutdown\n");
   return 0;
 }
