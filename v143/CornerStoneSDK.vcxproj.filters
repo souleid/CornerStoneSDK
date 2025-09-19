@@ -24,58 +24,46 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\thread\Thread_Default.cpp">
-      <Filter>src\thread</Filter>
+    <ClCompile Include="..\src\cornerstonesdkcore.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\thread\ThreadAllocator_Default.cpp">
-      <Filter>src\thread</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\memory\MemoryAllocator_Default.cpp">
+    <ClCompile Include="..\src\memory\csmemoryallcator.cpp">
       <Filter>src\memory</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\platform\PlatformServices_Default.cpp">
-      <Filter>src\platform</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\thread\ManagedThreadPool.cpp">
+    <ClCompile Include="..\src\thread\csthreadallocator.cpp">
       <Filter>src\thread</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CornerStoneSDKCore.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\src\thread\managedthreadpool.cpp">
+      <Filter>src\thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\thread\IThread.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\thread\IThreadAllocator.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\thread\Thread_Default.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\thread\ThreadAllocator_Default.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\memory\IMemoryAllocator.h">
-      <Filter>src\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\memory\MemoryAllocator_Default.h">
-      <Filter>src\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\platform\ISDKPlatformServices.h">
-      <Filter>src\platform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\platform\PlatformServices_Default.h">
-      <Filter>src\platform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\thread\ManagedThreadPool.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\thread\ManagedThreadPool_impl.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\include\CornerStoneSDKCore.h">
+    <ClInclude Include="..\src\include\cornerstonesdkcore.h">
       <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memory\csmemory_api.h">
+      <Filter>src\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memory\csmemoryallocator.h">
+      <Filter>src\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memory\csnewdelete.h">
+      <Filter>src\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memory\memoryutils.h">
+      <Filter>src\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\thread\csthread_api.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\thread\csthreadallocator.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\thread\managedthreadpool.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\thread\managedthreadpool_impl.h">
+      <Filter>src\thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

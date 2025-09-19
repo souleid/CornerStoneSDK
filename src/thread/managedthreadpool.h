@@ -11,30 +11,24 @@
 #include <mutex>
 #include <deque>
 #include <thread>
-#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
-#include "src/memory/IMemoryAllocator.h"
-#include "src/thread/IThreadAllocator.h"
-#include "src/thread/IThread.h"
+#include "src/thread/csthreadallocator.h"
 
 namespace cornerstone {
 
-// ID to track and cancel individual tasks.
 using TaskId = std::uint64_t;
 
-// ManagedThreadPool allows asynchronous task execution.
 class ManagedThreadPool {
  public:
-  explicit ManagedThreadPool(IMemoryAllocator* memory_allocator,
-                              IThreadAllocator* thread_allocator);
-
+  ManagedThreadPool();
   ~ManagedThreadPool();
 
   void Start(std::size_t num_threads);
   void Stop();
 
-  void Enqueue(std::function<void()> task);
+  TaskId Enqueue(std::function<void()> task);
 
   // Template enqueue with result callback.
   template <typename Func, typename ResultCallback>
@@ -42,6 +36,7 @@ class ManagedThreadPool {
 
   TaskId EnqueueWithId(TaskId id, std::function<void()> task);
   bool CancelById(TaskId id);
+  void CancelAll();
 
  private:
   struct TaskEntry {
@@ -51,12 +46,11 @@ class ManagedThreadPool {
 
   void WorkerLoop(std::size_t worker_index);
 
-  IMemoryAllocator* memory_allocator_;
-  IThreadAllocator* thread_allocator_;
+  static void ThreadEntryAdapter(void* arg);
 
-  std::vector<std::unique_ptr<IThread>> threads_;
+  std::vector<ThreadHandle> threads_;
   std::deque<TaskEntry> task_queue_;
-  std::unordered_map<TaskId, bool> canceled_tasks_;
+  std::unordered_set<TaskId> canceled_tasks_;
 
   std::mutex queue_mutex_;
   std::condition_variable condition_;

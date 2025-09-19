@@ -67,26 +67,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\CornerStoneSDKCore.cpp" />
+    <ClCompile Include="..\src\cornerstonesdkcore.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\memory\MemoryAllocator_Default.cpp" />
-    <ClCompile Include="..\src\platform\PlatformServices_Default.cpp" />
-    <ClCompile Include="..\src\thread\ManagedThreadPool.cpp" />
-    <ClCompile Include="..\src\thread\ThreadAllocator_Default.cpp" />
-    <ClCompile Include="..\src\thread\Thread_Default.cpp" />
+    <ClCompile Include="..\src\memory\csmemoryallcator.cpp" />
+    <ClCompile Include="..\src\thread\csthreadallocator.cpp" />
+    <ClCompile Include="..\src\thread\managedthreadpool.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\include\CornerStoneSDKCore.h" />
-    <ClInclude Include="..\src\memory\IMemoryAllocator.h" />
-    <ClInclude Include="..\src\memory\MemoryAllocator_Default.h" />
-    <ClInclude Include="..\src\platform\ISDKPlatformServices.h" />
-    <ClInclude Include="..\src\platform\PlatformServices_Default.h" />
-    <ClInclude Include="..\src\thread\IThread.h" />
-    <ClInclude Include="..\src\thread\IThreadAllocator.h" />
-    <ClInclude Include="..\src\thread\ManagedThreadPool.h" />
-    <ClInclude Include="..\src\thread\ManagedThreadPool_impl.h" />
-    <ClInclude Include="..\src\thread\ThreadAllocator_Default.h" />
-    <ClInclude Include="..\src\thread\Thread_Default.h" />
+    <ClInclude Include="..\src\include\cornerstonesdkcore.h" />
+    <ClInclude Include="..\src\memory\csmemoryallocator.h" />
+    <ClInclude Include="..\src\memory\csmemory_api.h" />
+    <ClInclude Include="..\src\memory\csnewdelete.h" />
+    <ClInclude Include="..\src\memory\memoryutils.h" />
+    <ClInclude Include="..\src\thread\csthreadallocator.h" />
+    <ClInclude Include="..\src\thread\csthread_api.h" />
+    <ClInclude Include="..\src\thread\managedthreadpool.h" />
+    <ClInclude Include="..\src\thread\managedthreadpool_impl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
