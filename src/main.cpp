@@ -4,7 +4,7 @@
 #include <thread>
 #include <vector>
 
-#include "src/include/cornerstonesdkcore.h"
+#include "src/cornerstonesdkcore.h"
 
 int main() {
   cornerstone::CornerstoneSdkCore sdk;

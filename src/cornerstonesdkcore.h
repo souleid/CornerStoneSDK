@@ -1,6 +1,6 @@
 // Copyright 2025 souleid
-#ifndef SRC_INCLUDE_CORNERSTONESDKCORE_H_
-#define SRC_INCLUDE_CORNERSTONESDKCORE_H_
+#ifndef SRC_CORNERSTONESDKCORE_H_
+#define SRC_CORNERSTONESDKCORE_H_
 
 #include <atomic>
 #include <cstddef>
@@ -69,4 +69,4 @@ class CornerstoneSdkCore {
 
 }  // namespace cornerstone
 
-#endif  // SRC_INCLUDE_CORNERSTONESDKCORE_H_
+#endif  // SRC_CORNERSTONESDKCORE_H_

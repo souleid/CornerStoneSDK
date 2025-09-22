@@ -7,7 +7,7 @@
 #include <cstdint>
 
 #include "src/memory/csmemoryallocator.h"
-// Copyright 2025 souleid
+
 namespace cornerstone {
 namespace memory {
 

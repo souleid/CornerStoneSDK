@@ -1,5 +1,5 @@
 // Copyright 2025 souleid
-#include "src/include/cornerstonesdkcore.h"
+#include "src/cornerstonesdkcore.h"
 
 #include <utility>
 

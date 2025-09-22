@@ -19,10 +19,6 @@ Global
 		Static_Debug|x86 = Static_Debug|x86
 		Static_Release|x64 = Static_Release|x64
 		Static_Release|x86 = Static_Release|x86
-		Unreal_Lib_Debug|x64 = Unreal_Lib_Debug|x64
-		Unreal_Lib_Debug|x86 = Unreal_Lib_Debug|x86
-		Unreal_Lib_Release|x64 = Unreal_Lib_Release|x64
-		Unreal_Lib_Release|x86 = Unreal_Lib_Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Debug|x64.ActiveCfg = Debug|x64
@@ -49,14 +45,6 @@ Global
 		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Static_Release|x64.Build.0 = Static_Release|x64
 		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Static_Release|x86.ActiveCfg = Static_Release|Win32
 		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Static_Release|x86.Build.0 = Static_Release|Win32
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Debug|x64.ActiveCfg = Unreal_Debug|x64
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Debug|x64.Build.0 = Unreal_Debug|x64
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Debug|x86.ActiveCfg = Unreal_Debug|Win32
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Debug|x86.Build.0 = Unreal_Debug|Win32
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Release|x64.ActiveCfg = Unreal_Release|x64
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Release|x64.Build.0 = Unreal_Release|x64
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Release|x86.ActiveCfg = Unreal_Release|Win32
-		{6BC72F11-0531-4E99-9CC7-60E9D9691B11}.Unreal_Lib_Release|x86.Build.0 = Unreal_Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
