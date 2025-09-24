@@ -28,5 +28,13 @@ public class CornerStoneCore : ModuleRules
 		{
 			
 		}
+		else if (Target.Platform == UnrealTargetPlatform.Android)
+		{
+			 PublicAdditionalLibraries.Add(Path.Combine(LibPath, "Android", "arm64-v8a", "libcornerstone.a"));
+        }
+		else if (Target.Platform == UnrealTargetPlatform.IOS)
+		{
+			 PublicAdditionalLibraries.Add(Path.Combine(LibPath, "IOS", "libcornerstone.a"));
+        }
 	}
 }

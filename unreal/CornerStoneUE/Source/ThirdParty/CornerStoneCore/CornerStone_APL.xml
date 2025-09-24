@@ -1,0 +1,24 @@
+<!-- Copyright 2025 souleid -->
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <init>
+        <log text="CornerStoneCore APL init"/>
+    </init>
+	<platformAndroid>
+	<libraries>
+      <library name="cornerstone">
+        <arm64-v8a
+          src="$(PluginDir)/Source/ThirdParty/CornerStoneCore/Lib/Android/arm64-v8a/libcornerstone.a" />
+        <x86_64
+          src="$(PluginDir)/Source/ThirdParty/CornerStoneCore/Lib/Android/x86_64/libcornerstone.a" />
+      </library>
+    </libraries>
+	</platformAndroid>
+    <!--
+    <prebuildCopies>
+        <copyFile src="$(PluginDir)/Sources/CornerStoneCore/Lib/Android/arm64-v8a/libcornerstone.a"
+                  dst="$S(BuildDir)/libs/arm64-v8a/libcornerstone.a" />
+        <copyFile src="$(PluginDir)/Sources/CornerStoneCore/Lib/Android/x86_64/libcornerstone.a"
+                  dst="$S(BuildDir)/libs/x86_64/libcornerstone.a" />
+    </prebuildCopies> -->
+</root>
