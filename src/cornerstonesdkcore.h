@@ -24,10 +24,8 @@ class CornerstoneSdkCore {
     const memory::MemoryAllocator* mem_alloc = nullptr,
     const thread::ThreadAllocator* thr_alloc = nullptr);
 
-  // Shuts down the worker pool and clears pending tasks.
   void Shutdown();
 
-  // Enqueue a fire-and-forget task. Returns a TaskId, or 0 on failure.
   TaskId Request(std::function<void()> task);
 
   // Enqueue a task with a result callback. Works for void/non-void tasks.

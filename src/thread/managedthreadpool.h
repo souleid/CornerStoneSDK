@@ -55,11 +55,11 @@ class ManagedThreadPool {
   std::mutex queue_mutex_;
   std::condition_variable condition_;
   std::atomic<bool> stop_;
-  std::atomic<TaskId> next_task_id_;
+  std::atomic<TaskId> next_task_id_{0};
 };
 
 }  // namespace cornerstone
 
-#include "src/thread/ManagedThreadPool_impl.h"
+#include "src/thread/managedthreadpool_impl.h"
 
 #endif  // SRC_THREAD_MANAGEDTHREADPOOL_H_
