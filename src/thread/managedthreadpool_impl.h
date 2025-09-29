@@ -21,7 +21,7 @@ void InvokeWithResult(Func func, ResultCallback callback, std::false_type) {
 template <typename Func, typename ResultCallback>
 void InvokeWithResult(Func func, ResultCallback callback, std::true_type) {
   func();
-  callback();  // callback takes no argument
+  callback();
 }
 
 }  // namespace internal

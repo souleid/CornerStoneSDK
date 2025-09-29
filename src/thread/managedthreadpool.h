@@ -30,7 +30,6 @@ class ManagedThreadPool {
 
   TaskId Enqueue(std::function<void()> task);
 
-  // Template enqueue with result callback.
   template <typename Func, typename ResultCallback>
   TaskId EnqueueWithResult(Func task_func, ResultCallback callback);
 

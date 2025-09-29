@@ -132,7 +132,6 @@ void ManagedThreadPool::WorkerLoop(std::size_t /*worker_index*/) {
 }
 
 void ManagedThreadPool::ThreadEntryAdapter(void* arg) {
-  // Take ownership of the heap arg and free it upon exit.
   struct Arg {
     ManagedThreadPool* self;
     std::size_t index;
