@@ -11,10 +11,23 @@
 		3C6190AC2E83F9A900A309C9 /* cornerstonesdkcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A72E83F9A900A309C9 /* cornerstonesdkcore.cpp */; };
 		3C6190AD2E83F9A900A309C9 /* csthreadallocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A12E83F9A900A309C9 /* csthreadallocator.cpp */; };
 		3C6190AE2E83F9A900A309C9 /* managedthreadpool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A32E83F9A900A309C9 /* managedthreadpool.cpp */; };
+		3C777AF92E855FB2007885D6 /* csmemoryallcator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C61909A2E83F9A900A309C9 /* csmemoryallcator.cpp */; };
+		3C777AFA2E855FB2007885D6 /* cornerstonesdkcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A72E83F9A900A309C9 /* cornerstonesdkcore.cpp */; };
+		3C777AFB2E855FB2007885D6 /* csthreadallocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A12E83F9A900A309C9 /* csthreadallocator.cpp */; };
+		3C777AFC2E855FB2007885D6 /* managedthreadpool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C6190A32E83F9A900A309C9 /* managedthreadpool.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3C6190422E83F8AA00A309C9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C777AFE2E855FB2007885D6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -41,10 +54,18 @@
 		3C6190A62E83F9A900A309C9 /* cornerstonesdkcore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cornerstonesdkcore.h; sourceTree = "<group>"; };
 		3C6190A72E83F9A900A309C9 /* cornerstonesdkcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cornerstonesdkcore.cpp; sourceTree = "<group>"; };
 		3C6190A82E83F9A900A309C9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3C777B022E855FB2007885D6 /* libCornerStoneSDK Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCornerStoneSDK Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3C6190412E83F8AA00A309C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C777AFD2E855FB2007885D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -66,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				3C6190442E83F8AA00A309C9 /* libCornerStoneSDK.a */,
+				3C777B022E855FB2007885D6 /* libCornerStoneSDK Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,6 +152,25 @@
 			productReference = 3C6190442E83F8AA00A309C9 /* libCornerStoneSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		3C777AF72E855FB2007885D6 /* CornerStoneSDK Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C777AFF2E855FB2007885D6 /* Build configuration list for PBXNativeTarget "CornerStoneSDK Mac" */;
+			buildPhases = (
+				3C777AF82E855FB2007885D6 /* Sources */,
+				3C777AFD2E855FB2007885D6 /* Frameworks */,
+				3C777AFE2E855FB2007885D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CornerStoneSDK Mac";
+			packageProductDependencies = (
+			);
+			productName = CornerStoneSDK;
+			productReference = 3C777B022E855FB2007885D6 /* libCornerStoneSDK Mac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -159,6 +200,7 @@
 			projectRoot = "";
 			targets = (
 				3C6190432E83F8AA00A309C9 /* CornerStoneSDK */,
+				3C777AF72E855FB2007885D6 /* CornerStoneSDK Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -172,6 +214,17 @@
 				3C6190AC2E83F9A900A309C9 /* cornerstonesdkcore.cpp in Sources */,
 				3C6190AD2E83F9A900A309C9 /* csthreadallocator.cpp in Sources */,
 				3C6190AE2E83F9A900A309C9 /* managedthreadpool.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C777AF82E855FB2007885D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C777AF92E855FB2007885D6 /* csmemoryallcator.cpp in Sources */,
+				3C777AFA2E855FB2007885D6 /* cornerstonesdkcore.cpp in Sources */,
+				3C777AFB2E855FB2007885D6 /* csthreadallocator.cpp in Sources */,
+				3C777AFC2E855FB2007885D6 /* managedthreadpool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +352,7 @@
 		3C61904F2E83F8AA00A309C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9323VVAU9C;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
@@ -306,6 +360,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -313,6 +369,7 @@
 		3C6190502E83F8AA00A309C9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9323VVAU9C;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
@@ -320,6 +377,44 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3C777B002E855FB2007885D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9323VVAU9C;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3C777B012E855FB2007885D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9323VVAU9C;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -341,6 +436,15 @@
 			buildConfigurations = (
 				3C61904F2E83F8AA00A309C9 /* Debug */,
 				3C6190502E83F8AA00A309C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C777AFF2E855FB2007885D6 /* Build configuration list for PBXNativeTarget "CornerStoneSDK Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C777B002E855FB2007885D6 /* Debug */,
+				3C777B012E855FB2007885D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

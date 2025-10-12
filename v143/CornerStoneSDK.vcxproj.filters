@@ -16,6 +16,9 @@
     <Filter Include="src\thread">
       <UniqueIdentifier>{f180771a-f145-4d33-ae5a-53931e6a1b0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="unity">
+      <UniqueIdentifier>{f52ce201-2918-4a66-af10-934f5a15cefc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -24,7 +27,7 @@
     <ClCompile Include="..\src\cornerstonesdkcore.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\memory\csmemoryallcator.cpp">
+    <ClCompile Include="..\src\memory\csmemoryallocator.cpp">
       <Filter>src\memory</Filter>
     </ClCompile>
     <ClCompile Include="..\src\thread\csthreadallocator.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="..\src\thread\managedthreadpool.cpp">
       <Filter>src\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unity\cornerstone_c_api.cpp">
+      <Filter>unity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\src\cornerstonesdkcore.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unity\cornerstone_c_api.h">
+      <Filter>unity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
