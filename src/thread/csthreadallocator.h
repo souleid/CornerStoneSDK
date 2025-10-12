@@ -2,7 +2,6 @@
 #ifndef SRC_THREAD_CSTHREADALLOCATOR_H_
 #define SRC_THREAD_CSTHREADALLOCATOR_H_
 
-// Thread allocator singleton for CornerStone SDK.
 #include <atomic>
 #include <cstdint>
 #include <memory>
