@@ -4,12 +4,15 @@
 
 #include <atomic>
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <thread>
 #include <utility>
 
+#include "src/memory/memoryutils.h"
+
 struct ThreadInfo {
-  std::unique_ptr<std::thread> th;
+  cornerstone::UniquePtr<std::thread> th;
   std::atomic<bool> started{ false };
   std::atomic<bool> pre_canceled{ false };
 };
@@ -24,12 +27,12 @@ struct ThreadDesc {
   std::uint64_t affinity_mask = 0ULL;
 };
 
-using ThreadEntry = void (*)(void* user_arg);
+using ThreadFunc = std::function<void()>;
 
 class CSThreadAllocator {
  public:
   using CreateFn = ThreadHandle (*)(const ThreadDesc& desc);
-  using RunFn = bool (*)(ThreadHandle, ThreadEntry, void* arg);
+  using RunFn = bool (*)(ThreadHandle, ThreadFunc work);
   using CancelFn = void (*)(ThreadHandle);
   using JoinFn = void (*)(ThreadHandle);
   using DestroyFn = void (*)(ThreadHandle);
@@ -43,7 +46,7 @@ class CSThreadAllocator {
     DestroyFn destroy_fn) noexcept;
 
   ThreadHandle Create(const ThreadDesc& desc) const noexcept;
-  bool Run(ThreadHandle handle, ThreadEntry entry, void* arg) const noexcept;
+  bool Run(ThreadHandle handle, ThreadFunc work) const noexcept;
   void Cancel(ThreadHandle handle) const noexcept;
   void Join(ThreadHandle handle) const noexcept;
   void Destroy(ThreadHandle handle) const noexcept;

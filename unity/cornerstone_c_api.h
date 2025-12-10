@@ -36,6 +36,11 @@ extern "C" {
                             CSResultCallback cb, void* cb_arg,
                             std::uint64_t* out_id);
 
+  CS_API CSResult CS_CALL CSRequest(CSHandle h, CSWorker work,
+    void* work_arg,
+    CSResultCallback cb, void* cb_arg,
+    std::uint64_t* out_id);
+
   CS_API CSResult CS_CALL CSCancel(CSHandle h, std::uint64_t id);
   CS_API CSResult CS_CALL CSCancelAll(CSHandle h);
 

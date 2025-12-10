@@ -39,6 +39,12 @@
     <ClCompile Include="..\unity\cornerstone_c_api.cpp">
       <Filter>unity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\task\taskmanager.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\task_download.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\memory\csmemory_api.h">
@@ -70,6 +76,15 @@
     </ClInclude>
     <ClInclude Include="..\unity\cornerstone_c_api.h">
       <Filter>unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\taskmanager.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\task_download.h">
+      <Filter>src\task</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

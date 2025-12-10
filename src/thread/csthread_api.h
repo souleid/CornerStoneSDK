@@ -23,8 +23,8 @@ inline bool SetAllocator(const ThreadAllocator& a) noexcept {
 inline ThreadHandle Create(const ThreadDesc& d) noexcept {
   return CSThreadAllocator::Instance().Create(d);
 }
-inline bool Run(ThreadHandle h, ThreadEntry e, void* a) noexcept {
-  return CSThreadAllocator::Instance().Run(h, e, a);
+inline bool Run(ThreadHandle h, std::function<void()> work) noexcept {
+  return CSThreadAllocator::Instance().Run(h, work);
 }
 inline void Cancel(ThreadHandle h) noexcept {
   CSThreadAllocator::Instance().Cancel(h);

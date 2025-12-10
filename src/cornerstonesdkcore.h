@@ -6,9 +6,14 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <mutex>
+#include <utility>
 
 #include "src/memory/csmemory_api.h"
+#include "src/memory/memoryutils.h"
+#include "src/task/task.h"
+#include "src/task/taskmanager.h"
 #include "src/thread/csthreadallocator.h"
 #include "src/thread/managedthreadpool.h"
 #include "src/thread/csthread_api.h"
@@ -35,7 +40,14 @@ class CornerstoneSdkCore {
   template <typename Func, typename ResultCallback>
   TaskId RequestWithResult(Func task_func, ResultCallback callback) {
     if (!IsRunning()) return 0;
-    return pool_.EnqueueWithResult(task_func, callback);
+    return thread_pool_.EnqueueWithResult(task_func, callback);
+  }
+
+  template <typename T, typename ResultCallback>
+  TaskId RequestTask(UniquePtr<T> task,
+                     ResultCallback callback) {
+    if (!IsRunning()) return 0;
+    return task_manager_.RequestTask(std::move(task), std::move(callback));
   }
 
   bool CancelById(TaskId id);
@@ -52,7 +64,8 @@ class CornerstoneSdkCore {
 
   mutable std::mutex mu_;
   std::atomic<bool> inited_{ false };
-  ManagedThreadPool pool_;
+  ManagedThreadPool thread_pool_;
+  TaskManager task_manager_;
 };
 
 }  // namespace cornerstone

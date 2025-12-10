@@ -27,17 +27,12 @@ void ManagedThreadPool::Start(std::size_t num_threads) {
       continue;
     }
 
-    struct Arg {
-      ManagedThreadPool* self;
-      std::size_t index;
-    };
-    Arg* a = new Arg{ this, i };
+    bool ok = thread::Run(handle, [this, i]() {
+      this->WorkerLoop(i);
+    });
 
-    bool ok = thread::Run(handle, &ManagedThreadPool::ThreadEntryAdapter,
-      static_cast<void*>(a));
     if (!ok) {
       thread::Destroy(handle);
-      delete a;
       continue;
     }
     threads_.push_back(handle);
@@ -130,15 +125,4 @@ void ManagedThreadPool::WorkerLoop(std::size_t /*worker_index*/) {
     if (entry.task) entry.task();
   }
 }
-
-void ManagedThreadPool::ThreadEntryAdapter(void* arg) {
-  struct Arg {
-    ManagedThreadPool* self;
-    std::size_t index;
-  };
-  std::unique_ptr<Arg> holder(static_cast<Arg*>(arg));
-  if (!holder || !holder->self) return;
-  holder->self->WorkerLoop(holder->index);
-}
-
 }  // namespace cornerstone
