@@ -29,17 +29,12 @@ extern "C" {
   CS_API CSResult CS_CALL CSCreate(std::uint32_t num_threads,
                            CSHandle* out);
 
-  CS_API CSResult CS_CALL CSDestory(CSHandle h);
+  CS_API CSResult CS_CALL CSDestroy(CSHandle h);
 
   CS_API CSResult CS_CALL CSRequest(CSHandle h, CSWorker work,
                             void* work_arg,
                             CSResultCallback cb, void* cb_arg,
                             std::uint64_t* out_id);
-
-  CS_API CSResult CS_CALL CSRequest(CSHandle h, CSWorker work,
-    void* work_arg,
-    CSResultCallback cb, void* cb_arg,
-    std::uint64_t* out_id);
 
   CS_API CSResult CS_CALL CSCancel(CSHandle h, std::uint64_t id);
   CS_API CSResult CS_CALL CSCancelAll(CSHandle h);

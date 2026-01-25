@@ -58,8 +58,7 @@ extern "C" {
     return 0;
   }
 
-  // Note: API name follows the header's 'Destory' spelling.
-  CS_API CSResult CSDestory(CSHandle h) {
+  CS_API CSResult CSDestroy(CSHandle h) {
     auto* core = FromHandle(h);
     if (!core) return -1;
 
@@ -84,8 +83,7 @@ extern "C" {
       SetErr("core not running");
       return -2;
     }
-
-    // Capture id by reference into the completion callback.
+	
     std::uint64_t captured_id = 0;
 
     captured_id = core->RequestWithResult(
