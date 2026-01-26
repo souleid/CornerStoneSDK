@@ -15,13 +15,13 @@ ThreadHandle StdCreate(const ThreadDesc& /*desc*/) {
   return CSNew<ThreadInfo>();
 }
 
-bool StdRun(ThreadInfo* h, ThreadEntry entry, void* arg) {
-  if (!h || !entry) return false;
+bool StdRun(ThreadInfo* h, ThreadFunc work) {
+  if (!h || !work) return false;
 
   if (h->started.load() || h->pre_canceled.load()) return false;
 
   try {
-    h->th.reset(CSNew<std::thread>([entry, arg]() { entry(arg); }));
+    h->th.reset(CSNew<std::thread>(std::move(work)));
   }
   catch (...) {
     h->th.reset();
@@ -91,8 +91,8 @@ ThreadHandle CSThreadAllocator::Create(const ThreadDesc& desc) const noexcept {
 }
 
 bool CSThreadAllocator::Run(ThreadHandle handle,
-    ThreadEntry entry, void* arg) const noexcept {
-  return (run_fn_ && handle) ? run_fn_(handle, entry, arg) : false;
+    ThreadFunc work) const noexcept {
+  return (run_fn_ && handle) ? run_fn_(handle, std::move(work)) : false;
 }
 
 void CSThreadAllocator::Cancel(ThreadHandle handle) const noexcept {

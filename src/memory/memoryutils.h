@@ -14,6 +14,9 @@ struct CSDeleter {
   void operator()(T* p) const noexcept { CSDelete(p); }
 };
 
+template <typename T>
+using UniquePtr = std::unique_ptr<T, CSDeleter<T>>;
+
 namespace util {
 
 template <class T, class... Args>
@@ -24,8 +27,9 @@ std::unique_ptr<T, CSDeleter<T>> MakeUnique(Args&&... args) {
 
 template <class T, class... Args>
 std::shared_ptr<T> MakeShared(Args&&... args) {
-  return std::shared_ptr<T, CSDeleter<T>>(
-    CSNew<T>(static_cast<Args&&>(args)...));
+  return std::shared_ptr<T>(
+    CSNew<T>(static_cast<Args&&>(args)...),
+    CSDelete<T>());
 }
 }  // namespace util
 }  // namespace cornerstone

@@ -4,11 +4,13 @@
 #include <utility>
 
 namespace cornerstone {
-
-CornerstoneSdkCore::CornerstoneSdkCore() = default;
+CornerstoneSdkCore::CornerstoneSdkCore() : thread_pool_(),
+task_manager_(&thread_pool_),
+inited_(false) {}
 
 CornerstoneSdkCore::~CornerstoneSdkCore() {
-  Shutdown();
+  if (inited_.load())
+    Shutdown();
 }
 
 bool CornerstoneSdkCore::Init(std::size_t num_threads,
@@ -28,23 +30,23 @@ bool CornerstoneSdkCore::Init(std::size_t num_threads,
 void CornerstoneSdkCore::Shutdown() {
   std::lock_guard<std::mutex> lock(mu_);
   if (!inited_.load()) return;
-  pool_.Stop();
+  thread_pool_.Stop();
   inited_.store(false);
 }
 
 TaskId CornerstoneSdkCore::Request(std::function<void()> task) {
   if (!IsRunning()) return 0;
-  return pool_.Enqueue(std::move(task));
+  return thread_pool_.Enqueue(std::move(task));
 }
 
 bool CornerstoneSdkCore::CancelById(TaskId id) {
   if (!IsRunning()) return false;
-  return pool_.CancelById(id);
+  return thread_pool_.CancelById(id);
 }
 
 void CornerstoneSdkCore::CancelAll() {
   if (!IsRunning()) return;
-  pool_.CancelAll();
+  thread_pool_.CancelAll();
 }
 
 bool CornerstoneSdkCore::IsRunning() const noexcept {
@@ -65,7 +67,7 @@ bool CornerstoneSdkCore::InstallThreadAllocator_(
 
 void CornerstoneSdkCore::StartPool(std::size_t num_threads) {
   if (num_threads == 0) num_threads = 1;
-  pool_.Start(num_threads);
+  thread_pool_.Start(num_threads);
 }
 
 }  // namespace cornerstone
