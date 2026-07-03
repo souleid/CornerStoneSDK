@@ -1,24 +1,101 @@
 # CornerStoneSDK
 
-Lightweight, High-Performance Asynchronous SDK Framework for Cross-Platform Service Modules.
+> Cross-engine, multi-platform plugin framework — one pure C++14 core,
+> injectable memory/thread allocators, thin bindings for Unreal & Unity.
 
----
+![C++14](https://img.shields.io/badge/C%2B%2B-14-00599C?logo=cplusplus&logoColor=white)
+![Unreal](https://img.shields.io/badge/Unreal_Engine-5-0E1128?logo=unrealengine&logoColor=white)
+![Unity](https://img.shields.io/badge/Unity-6-000000?logo=unity&logoColor=white)
+![Platforms](https://img.shields.io/badge/Win64_·_macOS_·_Android_·_iOS-444444)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Project Overview & Core Value
+## Why
 
-**CornerStoneSDK** is a **lightweight SDK framework** built to **research and implement** custom memory management and multithreaded environments. 
+Shipping a platform SDK into live game engines taught me two hard lessons:
 
-This project is designed to solve common problems when integrating services into performance-sensitive applications, like game engines.
+1. **Every plugin project starts by rebuilding the same scaffolding** —
+   threading, memory management, engine bindings, build scripts. Again and again.
+2. **An SDK that allocates with `std::malloc` inside an engine that uses its own
+   allocator is a crash waiting to happen.** I debugged exactly this in production:
+   memory handed across the boundary between Unreal's binned malloc and the C++
+   standard allocator, ending in fragmentation and crashes.
 
-**Primary Goal:** To efficiently **separate** service logic from the main application thread, and to provide a **stable, predictable asynchronous environment** using a **custom memory allocator** and a **dedicated thread pool**.
+CornerStoneSDK is my answer to both: an engine-agnostic C++ core whose memory and
+threading are **injected by the host**, plus thin per-engine bindings — so the same
+core runs identically inside Unreal, Unity, or a bare console app.
 
-## Key Features
+## Architecture
 
-* **High-Performance Core:**
-    * **Managed Threading:** Implements an **independent thread pool** to separate service logic from the main thread, **preventing host application responsiveness degradation**.
-    * **Pluggable Memory Allocation Strategy:** The SDK is designed to use its **own optimized custom allocator**, but it also allows **injecting host application (engine) allocators**. This critical feature ensures **memory profiling and debugging consistency** across the entire application stack.
-* **Asynchronous Architecture:**
-    * **Non-Blocking Design:** All core functionalities operate **non-blockingly** (e.g., via futures/promises), guaranteeing high concurrency and minimal latency during service execution.
-* **Lightweight & Extensible:**
-    * **Minimal Dependencies:** Maintains low external library dependencies, making the SDK a **lightweight framework foundation** for simplified build and integration.
-    * **Cross-Platform Ready:** Adheres strictly to C++ standards, ensuring **high portability** across various operating systems.
+Four layers, strictly separated — the core never includes an engine header:
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  Interface   Blueprint nodes (UE) · C# methods (Unity)    │
+├───────────────────────────────────────────────────────────┤
+│  Bridge      UObject wrapper · P/Invoke · marshalling     │
+├───────────────────────────────────────────────────────────┤
+│  Feature     download task · (OAuth, parser — planned)    │
+├───────────────────────────────────────────────────────────┤
+│  Core        adaptive memory allocator · thread pool      │
+└───────────────────────────────────────────────────────────┘
+```
+
+### Adaptive memory allocator (injection)
+
+The host passes its `malloc / realloc / free` at `Init()`. Every allocation the SDK
+makes flows through the engine's allocator — no allocator mismatch across the DLL
+boundary, and the SDK shows up in engine-level memory profiling.
+
+```cpp
+cornerstone::memory::MemoryAllocator host_alloc;
+host_alloc.malloc_fn  = &EngineMalloc;   // e.g. FMemory::Malloc
+host_alloc.realloc_fn = &EngineRealloc;
+host_alloc.free_fn    = &EngineFree;
+
+cornerstone::CornerstoneSdkCore sdk;
+sdk.Init(/*num_threads=*/4, &host_alloc);
+```
+
+### Managed thread pool
+
+Producer-consumer task queue with cancellation and result callbacks —
+heavy work (large downloads, async requests) never hitches the main thread.
+
+```cpp
+auto task = cornerstone::util::MakeUnique<cornerstone::TaskDownload>(
+    task_id, url, target_path, &OnProgress);
+sdk.RequestTask(std::move(task), &OnResult);   // runs on the pool
+sdk.CancelById(id);                            // cooperative cancellation
+```
+
+▶ **Run it yourself:** [`samples/console_download`](samples/console_download/) —
+downloads with live progress, cancellation, and a counting host allocator that
+proves every SDK allocation goes through the injected functions.
+
+## Building
+
+| Target | How |
+|--------|-----|
+| Windows (console/lib) | `v143/CornerStoneSDK.sln` (VS2022) |
+| Android (.a / Unity .so) | `android/build_android.py` (CMake/NDK) |
+| iOS | `ios/CornerStoneSDK.xcodeproj` |
+| Unreal plugin | `unreal/CornerStoneUE` (`.uplugin`, prebuilt libs linked via ThirdParty module) |
+| Unity | `unity/CornerStoneSDK` (C# runtime + native bindings) |
+
+Dependencies: libcurl (bundled under `external/`). Style: Google C++ (`cpplint`).
+
+## Status / Roadmap
+
+- [x] Core — allocator injection, managed thread pool, task manager
+- [x] Async download task (libcurl) with progress & cancellation
+- [x] Unreal 5 plugin & Unity 6 native binding — verified on Win64 · macOS · Android · iOS
+- [ ] OAuth task (iOS/Android)
+- [ ] Allocator micro-benchmark (vs default malloc)
+- [ ] CI (GitHub Actions: build + cpplint) & packaged releases (`.uplugin` / `.unitypackage`)
+
+## Author
+
+**Eunil Park (박은일)** — Game Client & SDK Engineer (C++, 12 yrs)
+[Portfolio](https://souleid.github.io) · [LinkedIn](https://www.linkedin.com/in/eunil-park-kor) · souleid@gmail.com
+
+Licensed under the [MIT License](LICENSE).
