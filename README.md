@@ -65,12 +65,20 @@ heavy work (large downloads, async requests) never hitches the main thread.
 auto task = cornerstone::util::MakeUnique<cornerstone::TaskDownload>(
     task_id, url, target_path, &OnProgress);
 sdk.RequestTask(std::move(task), &OnResult);   // runs on the pool
-sdk.CancelById(id);                            // cooperative cancellation
+sdk.CancelById(id);                            // cancels the task if still queued
 ```
+
+> Cancellation is queue-level: a task that has already been picked up by a
+> worker runs to completion. Cooperative cancellation for running tasks is on
+> the roadmap.
 
 ▶ **Run it yourself:** [`samples/console_download`](samples/console_download/) —
 downloads with live progress, cancellation, and a counting host allocator that
-proves every SDK allocation goes through the injected functions.
+shows SDK-owned allocations routed through the injected functions.
+
+> Scope note: objects the SDK owns explicitly (`CSNew` / `CSDelete`) go through
+> the injected allocator. Internal STL containers, `std::string`, and libcurl's
+> own allocations still use global `operator new` / `malloc`.
 
 ## Building
 
@@ -87,8 +95,14 @@ Dependencies: libcurl (bundled under `external/`). Style: Google C++ (`cpplint`)
 ## Status / Roadmap
 
 - [x] Core — allocator injection, managed thread pool, task manager
-- [x] Async download task (libcurl) with progress & cancellation
+- [x] Async download task (libcurl) with progress reporting
 - [x] Unreal 5 plugin & Unity 6 native binding — verified on Win64 · macOS · Android · iOS
+- [ ] Cooperative cancellation for running tasks — `Task::Cancel()` exists but is
+      not yet wired to the task registry; only queued tasks can be cancelled today
+- [ ] Alignment honoured in the default allocator — the `align` argument is
+      passed through the API but dropped by the default `malloc` backend
+- [ ] Exception-free core — `CSNew` throws `std::bad_alloc`, which does not fit
+      engines built without exceptions
 - [ ] OAuth task (iOS/Android)
 - [ ] Allocator micro-benchmark (vs default malloc)
 - [ ] CI (GitHub Actions: build + cpplint) & packaged releases (`.uplugin` / `.unitypackage`)
