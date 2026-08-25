@@ -18,6 +18,8 @@ ManagedThreadPool::~ManagedThreadPool() {
 }
 
 void ManagedThreadPool::Start(std::size_t num_threads) {
+  stop_.store(false);
+
   threads_.reserve(num_threads);
 
   for (std::size_t i = 0; i < num_threads; ++i) {

@@ -36,9 +36,7 @@ TaskId ManagedThreadPool::EnqueueWithResult(
     internal::InvokeWithResult(task_func, callback, is_void());
     };
 
-  EnqueueWithId(id, std::move(wrapper));
-
-  return id;
+  return EnqueueWithId(id, std::move(wrapper));
 }
 
 }  // namespace cornerstone
